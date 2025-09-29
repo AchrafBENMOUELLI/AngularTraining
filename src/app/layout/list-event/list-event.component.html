@@ -1,0 +1,52 @@
+<h1 class="page-title">{{ title }}</h1>
+
+<input
+  type="text"
+  [(ngModel)]="searchValue"
+  placeholder="Rechercher un événement..."
+  class="search-input" /><!---two way binding-->
+
+<div class="cards-container">
+  <!----enhance search input and display data-->
+  <!---- *ngfor + *ngif des directive structurelle + tnajm taaml directive perso-->
+
+  <!-- Use ng-container to loop and filter BEFORE rendering a card -->
+  <ng-container *ngFor="let e of (loading ? skeletonArray : listEvents)">
+    <!-- Only create the card if search matches OR still loading -->
+    <div class="event-card" *ngIf="loading || !searchValue || e.title.toLowerCase().includes(searchValue.toLowerCase())">
+
+      <!-- Skeleton card -->
+      <ng-container *ngIf="loading; else realEvent">
+        <div class="event-image skeleton-box"></div>
+        <div class="event-content">
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line small"></div>
+        </div>
+        <div class="event-footer">
+          <div class="skeleton-button"></div>
+        </div>
+      </ng-container>
+
+      <!-- Real event card -->
+      <ng-template #realEvent>
+        <img [src]="e.imageUrl" alt="{{ e.title }}" class="event-image" />
+        <div class="event-content">
+          <h2 class="event-title">{{ e.title }}</h2>
+          <p class="event-date">{{ e.date | date:'dd/MM/yyyy' }}</p>
+          <p class="event-location">📍 {{ e.location }}</p>
+          <p class="event-price">💲 {{ e.price }} DT</p>
+          <p class="event-places">{{ e.nbPlaces }} places disponibles</p>
+          <p class="event-places">{{ e.nbrLike }} Likes</p>
+          <p class="event-date">{{ e.date | date:'dd/MM/yyyy' }}</p>
+        </div>
+        <div class="event-footer">
+          <button class="btn-reserve" [disabled]="e.nbPlaces==0" (click)="nbrPlaceDecr(e)">Réserver</button><!--property binding ici bel []-->
+          <button class="btn-reserve" (click)="nbrLikeincr(e)">like</button>
+        </div>
+      </ng-template>
+      <!--exercice pipe li date  ???-->
+
+    </div>
+  </ng-container>
+</div>
