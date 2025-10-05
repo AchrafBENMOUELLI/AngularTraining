@@ -7,7 +7,6 @@ import { HeaderComponent } from './layout/header/header.component';
 import { HomeComponent } from './layout/home/home.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
-import { ListEventComponent } from './layout/list-event/list-event.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -16,8 +15,7 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     HomeComponent,
     FooterComponent,
-    NotFoundComponent,
-    ListEventComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

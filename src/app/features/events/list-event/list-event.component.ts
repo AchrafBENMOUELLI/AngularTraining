@@ -1,5 +1,5 @@
 import { Component , OnInit} from '@angular/core';
-import { Eventy } from '../../models/eventy';
+import { Eventy } from '../../../models/eventy';
 @Component({
   selector: 'app-list-event',
   templateUrl: './list-event.component.html',
