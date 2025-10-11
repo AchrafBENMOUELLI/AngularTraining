@@ -5,12 +5,16 @@ import { EventsRoutingModule } from './events-routing.module';
 import { EventsComponent } from './events.component';
 import { ListEventComponent } from './list-event/list-event.component';
 import { FormsModule } from '@angular/forms';
+import { DetailEventComponent } from './detail-event/detail-event.component';
+import { SideBarComponent } from './side-bar/side-bar.component';
 
 
 @NgModule({
   declarations: [
     EventsComponent,
-    ListEventComponent
+    ListEventComponent,
+    DetailEventComponent,
+    SideBarComponent
   ],
   imports: [
     CommonModule,

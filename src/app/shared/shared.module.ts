@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DatePersonPipe } from './date-person.pipe';
+import { DatePersPipe } from './pipes/date-pers.pipe';
 
 
 
 @NgModule({
   declarations: [
-    DatePersonPipe
+    DatePersPipe
   ],
   imports: [
     CommonModule
   ]
 })
-export class SharedModuleModule { }
+export class SharedModule { }

@@ -1,17 +1,20 @@
 <h1 class="page-title">{{ title }}</h1>
 
-<input
-  type="text"
-  [(ngModel)]="searchValue"
-  placeholder="Rechercher un événement..."
-  class="search-input" /><!---two way binding-->
+<div class="search-container">
+  <input
+    type="text"
+    [(ngModel)]="searchValue"
+    placeholder=" "
+    class="search-input" />
+  <label class="search-label">Rechercher un événement...</label>
+</div><!---two way binding-->
 
 <div class="cards-container">
   <!----enhance search input and display data-->
   <!---- *ngfor + *ngif des directive structurelle + tnajm taaml directive perso-->
 
   <!-- Use ng-container to loop and filter BEFORE rendering a card -->
-  <ng-container *ngFor="let e of (loading ? skeletonArray : listEvents)">
+  <ng-container *ngFor="let e of (loading ? skeletonArray : listEvents |slice:(currentPage - 1)*itemsPerPage:(currentPage)*itemsPerPage)"><!--pipe slice for pagination-->
     <!-- Only create the card if search matches OR still loading -->
     <div class="event-card" *ngIf="loading || !searchValue || e.title.toLowerCase().includes(searchValue.toLowerCase())">
 
@@ -39,6 +42,7 @@
           <p class="event-places">{{ e.nbPlaces }} places disponibles</p>
           <p class="event-places">{{ e.nbrLike }} Likes</p>
           <p class="event-date">{{ e.date | date:'dd/MM/yyyy' }}</p>
+          <a [routerLink]="['./details',e.id]">more details</a><!-----property binding here wa rakez fil url lazmk taa ./ bech twali event/detail bech yakraha-->
         </div>
         <div class="event-footer">
           <button class="btn-reserve" [disabled]="e.nbPlaces==0" (click)="nbrPlaceDecr(e)">Réserver</button><!--property binding ici bel []-->
@@ -48,3 +52,9 @@
     </div>
   </ng-container>
 </div>
+<div class="pagination">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} / {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</div>
+
