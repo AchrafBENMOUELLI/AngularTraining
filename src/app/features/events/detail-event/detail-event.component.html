@@ -1,1 +1,37 @@
-<p>detail-event works!</p>
+<div class="event-card">
+  <div class="event-image">
+    <img src="{{ currentEvent.imageUrl }}" alt="{{ currentEvent.title }}">
+  </div>
+  <div class="event-content">
+    <h3 class="event-title">{{ currentEvent.title }}</h3>
+    <div class="event-details">
+      <div class="detail-item">
+        <span class="detail-label">Date :</span>
+        <span class="detail-value">{{ currentEvent.date }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Lieu :</span>
+        <span class="detail-value">{{ currentEvent.location }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Prix :</span>
+        <span class="detail-value">{{ currentEvent.price }} TND</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Description :</span>
+        <span class="detail-value">{{ currentEvent.description }}</span>
+      </div>
+      <div>
+        <span class="detail-label">Places disponibles :</span>
+        <span class="detail-value">{{ currentEvent.nbPlaces }}</span>
+      </div>
+      <div>
+        <span class="detail-label">Likes :</span>
+        <span class="detail-value">{{ currentEvent.nbrLike }}</span>
+      </div>
+    </div>
+    <div class="event-actions">
+      <button class="btn-primary">Réserver</button>
+    </div>
+  </div>
+</div>

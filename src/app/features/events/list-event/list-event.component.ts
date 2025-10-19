@@ -12,21 +12,21 @@ export class ListEventComponent implements OnInit {
   searchValue:string;
 //////////////////////////////Skeletonscreen//////////////////////////////////////
   loading: boolean = true;
-  skeletonArray = Array(8);
+  skeletonArray = Array(3);
   ////////////////////////Pagination//////////////////////////////////////////
   currentPage = 1;
   itemsPerPage = 3;
 ////////////////////////////////////////////////////////////////////
-  constructor(private data: EventsService) {
+  constructor(private data: EventsService) { //injecter instance mel service
     //les services
    // this.title="List of Events from Constructor";  a eviter!!
   }
   ngOnInit(): void {
     //cnx avec backend ici prochainenemnt!
     this.title="List of Events"; // this is the best practice !
-    this.listEvents=this.data.getAllEvents();
+    this.listEvents=this.data.getAllEvents();// nadinaha lena 
     setTimeout(() => {
-    this.listEvents=[...this.listEvents];
+    this.listEvents=[...this.listEvents];// 3 dots are called spread operator /Clones the array to trigger UI update// idha estakhdamthach ma ybadilch l'affichage khater byemchi fibalou eli matbadel chy!
     this.loading = false;
     }, 1000);
   }

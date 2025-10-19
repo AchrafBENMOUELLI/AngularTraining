@@ -1,0 +1,31 @@
+<div class="event-card" *ngIf="loading || !searchValue || e.title.toLowerCase().includes(searchValue.toLowerCase())">
+  <!-- Skeleton -->
+      <ng-container *ngIf="loading; else realEvent">
+        <div class="event-image skeleton-box"></div>
+        <div class="event-content">
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line small"></div>
+        </div>
+        <div class="event-footer">
+          <div class="skeleton-button"></div>
+        </div>
+      </ng-container>
+  <!-- Real event -->
+  <ng-template #realEvent>
+    <img [src]="e.imageUrl" alt="{{ e.title }}" class="event-image" />
+    <div class="event-content">
+      <h2 class="event-title">{{ e.title }}</h2>
+      <p class="event-date">{{ e.date | date:'dd/MM/yyyy' }}</p>
+      <p class="event-location">📍 {{ e.location }}</p>
+      <p class="event-price">💲 {{ e.price }} DT</p>
+      <p class="event-places">{{ e.nbPlaces }} places disponibles</p>
+      <p class="event-places">{{ e.nbrLike }} Likes</p>
+      <a [routerLink]="['./details', e.id]">more details</a>
+    </div>
+    <div class="event-footer">
+      <button class="btn-reserve" [disabled]="e.nbPlaces == 0" >Réserver</button>
+      <button class="btn-reserve" (click)="LikeEvent(e)">like {{e.nbrLike}}</button>
+    </div>
+  </ng-template>
+</div>
