@@ -3,3 +3,70 @@
   text-align: center;
   font-size: x-large;
 }
+/* Carte */
+.card {
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0,0,0,.15);
+}
+
+/* Image de couverture */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Corps de carte */
+.card-body {
+  padding: 1.25rem;
+}
+
+/* Titre de carte (différent de .title globale) */
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+/* Meta infos */
+.text-muted {
+  font-size: .95rem;
+}
+
+/* Nombre de places */
+.fw-bold {
+  font-size: 1rem;
+}
+
+/* Actions (boutons + liens) */
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  align-items: center;
+  margin-top: .5rem;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-top: .5rem;
+  color: #6c757d;
+  font-size: .95rem;
+}
+
+/* Lien de détails */
+.card a {
+  text-decoration: none;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}

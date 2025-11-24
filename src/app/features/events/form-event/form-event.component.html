@@ -1,0 +1,84 @@
+<form class="row g-4 form-card" #form="ngForm" novalidate>
+  <div class="col-12">
+    <h2 class="h4 mb-1 text-brand">Create event</h2>
+    <p class="form-subtitle">Fill all fields to create your event.</p>
+  </div>
+
+  <div class="col-md-9">
+    <label id="title" class="form-label">Title</label>
+    <input type="text" [(ngModel)]="event.title" class="form-control" name="title" minlength="3" required #t="ngModel" />
+    <div class="alert alert-danger" *ngIf="t.touched && t.invalid">
+      <div *ngIf="t.hasError('required')">this field is required</div>
+      <div *ngIf="t.hasError('minlength')">this field has to be at least with 3 characters</div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <label for="description" class="form-label">Description</label>
+    <textarea [(ngModel)]="event.description" class="form-control" id="description" name="description" rows="3" placeholder="Event description" required #desc="ngModel"></textarea>
+    <div class="alert alert-danger" *ngIf="desc.touched && desc.invalid">
+      <div *ngIf="desc.hasError('required')">this field is required</div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <label for="date" class="form-label">Date</label>
+    <input type="date" [(ngModel)]="event.date" class="form-control" id="date" name="date" [min]="minDate" required #d="ngModel">
+    <div class="alert alert-danger" *ngIf="d.touched && d.invalid">
+      <div *ngIf="d.hasError('required')">this field is required</div>
+
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <label for="location" class="form-label">Location</label>
+    <input type="text" [(ngModel)]="event.location" class="form-control" id="location" name="location" placeholder="City / Venue" required #l="ngModel">
+    <div class="alert alert-danger" *ngIf="l.touched && l.invalid">
+      <div *ngIf="l.hasError('required')">this field is required</div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <label for="price" class="form-label">Price (€)</label>
+    <input type="number" [(ngModel)]="event.price" class="form-control" id="price" name="price" step="0.01" min="0"  pattern="^\d+(\.\d{1,2})?$" required #p="ngModel">
+    <div class="alert alert-danger" *ngIf="p.touched && p.invalid">
+      <div *ngIf="p.hasError('required')">this field is required</div>
+      <div *ngIf="p.hasError('pattern')">please enter a valid price (0 or positive, up to 2 decimals)</div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="organizerId" class="form-label">Organizer ID</label>
+    <input type="number" [(ngModel)]="event.organizerId" class="form-control" id="organizerId" name="organizerId" min="1" required #o="ngModel">
+    <div class="alert alert-danger" *ngIf="o.touched && o.invalid">
+      <div *ngIf="o.hasError('required')">this field is required</div>
+      <div *ngIf="o.hasError('min')">value must be at least 1</div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="imageUrl" class="form-label">Image URL</label>
+    <div class="input-group ig-brand">
+      <span class="input-group-text">&#64;</span>
+      <input type="url" [(ngModel)]="event.imageUrl" class="form-control" id="imageUrl" name="imageUrl" placeholder="https://..."  required #img="ngModel">
+    </div>
+    <div class="alert alert-danger" *ngIf="img.touched && img.invalid">
+      <div *ngIf="img.hasError('required')">this field is required</div>
+      <div *ngIf="img.hasError('url')">URL must be like https://example.com/image.jpg/png/gif</div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="nbPlaces" class="form-label">Available places</label>
+    <input type="number" [(ngModel)]="event.nbPlaces" class="form-control" id="nbPlaces" name="nbPlaces" min="5" required #n="ngModel">
+    <div class="alert alert-danger" *ngIf="n.touched && n.invalid">
+      <div *ngIf="n.hasError('required')">this field is required</div>
+      <div *ngIf="n.hasError('min')">places should be at least=5</div>
+    </div>
+  </div>
+
+  <div class="col-12 d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-brand-outline">Cancel</button>
+    <button class="btn btn-brand" type="submit" [disabled]="form.invalid" (click)="save()">Submit</button>
+  </div>
+</form>

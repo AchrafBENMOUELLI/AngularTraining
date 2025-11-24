@@ -1,0 +1,110 @@
+/* ========================= */
+/* Form Card & Layout */
+.form-card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.1);
+}
+
+/* Headings and subtitle */
+.text-brand {
+  color: #6f42c1; /* nice purple */
+}
+
+.form-subtitle {
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+}
+
+/* Labels */
+.form-label {
+  font-weight: 500;
+  color: #343a40;
+}
+
+/* Inputs */
+input.form-control,
+textarea.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input.form-control:focus,
+textarea.form-control:focus {
+  border-color: #6f42c1;
+  box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+}
+
+/* Buttons */
+.btn-brand {
+  background-color: #6f42c1;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.btn-brand:hover {
+  background-color: #5a33a5;
+}
+
+.btn-brand-outline {
+  color: #6f42c1;
+  border: 1px solid #6f42c1;
+  background-color: transparent;
+}
+
+.btn-brand-outline:hover {
+  background-color: #6f42c1;
+  color: #fff;
+}
+
+/* ========================= */
+/* Error Messages */
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert.alert-danger {
+  color: #b02a37;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  margin-top: 0.25rem;
+
+  /* Animation */
+  animation: slideFadeIn 0.3s ease forwards;
+}
+
+/* Input invalid/valid states */
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-color: #b02a37;
+  box-shadow: 0 0 0 0.2rem rgba(176, 42, 55, 0.25);
+}
+
+input.ng-valid.ng-touched,
+textarea.ng-valid.ng-touched {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+/* Optional: Input group prefix styling */
+.input-group-text {
+  background-color: #f0f0f0;
+  border-radius: 0.375rem 0 0 0.375rem;
+  border: 1px solid #ced4da;
+  color: #495057;
+}

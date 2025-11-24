@@ -19,17 +19,36 @@ export class ListEventComponent implements OnInit {
   }
   //methods => action
   ngOnInit() {
-    this.listEvents=this.eventService.getAllEvents();
+    this.eventService.getAllEvents().subscribe(
+      (data:Eventy[])=>{
+        this.listEvents=data;
+      }
+      );
   }
-  //method to buy ticket => click on the button buy ticket
-  //Haider
-  nbrPlaceDecr(e:Eventy){
-    e.nbPlaces --
+
+
+  /////////////////////////////////////////////////
+  delete(id: number) {
+  if (confirm("Are you sure you want to delete this event?")) {
+    this.eventService.deleteEvent(id).subscribe(
+      () => {
+        // remove the deleted event from the list
+        this.listEvents = this.listEvents.filter(e => e.id !== id);
+      },
+      error => {
+        console.error("Delete error:", error);
+      }
+    );
   }
-  //Marwa
-  nbrLike(e:Eventy){
-    e.nbrLike ++
-  }
+}
+  /////////////////////////////////////////////////
+//method to buy ticket => click on the button buy ticket
+
   search(){}
+
+  nbrLike(e:Eventy){
+      e.nbrLike ++
+      this.eventService.updateEvent(e).subscribe();
+    }
 
 }

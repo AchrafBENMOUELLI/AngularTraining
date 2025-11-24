@@ -1,16 +1,40 @@
 <div class="container py-4">
-  <h2 class="mb-3">Liste des événements</h2>
+  <div class="row align-items-center">
+  <div class="col">
+    <h2 class="mb-3">Liste des événements</h2>
+  </div>
+  <div class="col-auto">
+    <a routerLink="./newEvent">
+      <button class="btn btn-sm btn-warning">Add event</button>
+    </a>
+  </div>
+</div>
+
+
 
   <!-- Recherche -->
   <input type="text" [(ngModel)]="searchValue"  class="form-control mb-4" placeholder="Rechercher un événement">
 
-  <div class="row g-3" >
+  <div class="row g-3">
 
-    <app-card-event class="col-md-4"
-                    *ngFor="let event of listEvents"
-                    [e]="event" (notificationLike)="nbrLike(event)" >
+  <div class="col-md-4" *ngFor="let event of listEvents">
 
+
+
+    <app-card-event
+      [e]="event"
+      (notificationLike)="nbrLike(event)">
     </app-card-event>
 
+
+    <!-- Delete button must be inside the same ngFor -->
+    <button type="button" class="btn btn-danger btn-sm mt-2"
+            (click)="delete(event.id)">
+      Delete
+    </button>
+
   </div>
+
+</div>
+
 </div>

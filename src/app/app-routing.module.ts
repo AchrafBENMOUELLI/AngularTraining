@@ -9,6 +9,8 @@ const routes: Routes = [
   {path:'',redirectTo:'home',pathMatch:'full'},
   { path: 'events',
     loadChildren: () => import('./features/events/events.module').then(m => m.EventsModule) },
+  { path: 'users', loadChildren: () => import('./features/user/user.module').then(m => m.UserModule) },
+  { path: 'feedback', loadChildren: () => import('./features/events/feedback/feedback.module').then(m => m.FeedbackModule) },
   {path:'**',component:NotFoundComponent},
 ];
 

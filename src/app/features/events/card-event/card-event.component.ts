@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Eventy} from '../../../models/eventy';
+import { EventsService } from '../../../shared/data/events.service';
+
 
 @Component({
   selector: 'app-card-event',
@@ -7,12 +9,18 @@ import {Eventy} from '../../../models/eventy';
   styleUrl: './card-event.component.css'
 })
 export class CardEventComponent {
+  constructor(private eventService: EventsService) {}
+
   searchValue: string;
   @Input() e:Eventy;
   @Output() notificationLike:EventEmitter<Eventy>
     = new EventEmitter();
-  likeEvent(e:Eventy) {
-    this.notificationLike.emit(e);
+   nbrPlaceDecr(e:Eventy){
+    e.nbPlaces --
+    this.eventService.updateEvent(e).subscribe();
   }
-  nbrPlaceDecr(e:Eventy) {}
+  nbrLike(e:Eventy){
+    e.nbrLike ++
+    this.eventService.updateEvent(e).subscribe();
+  }
 }

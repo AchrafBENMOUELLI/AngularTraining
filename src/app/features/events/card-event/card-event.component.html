@@ -10,6 +10,7 @@
         <h5 class="card-title"
             [ngStyle]="{'color':e.nbPlaces==0?'red':'green'}">
           {{ e.title }}
+          nbrLikes: {{e.nbrLike}}
         </h5>
         <p class="text-muted">{{e.price}}</p>
         <p>{{e.location}}</p>
@@ -19,7 +20,7 @@
         <button [ngClass]="{'btn':true,'btn-sm':true,
                           'btn-danger':e.nbrLike>=5,
                           'btn-warning':e.nbrLike<5}"
-                (click)="likeEvent(e)">
+                (click)="nbrLike(e)">
           👍 Like {{e.nbrLike}}
         </button>
 

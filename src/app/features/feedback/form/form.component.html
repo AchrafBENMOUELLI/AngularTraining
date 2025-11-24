@@ -1,0 +1,33 @@
+<form #feedbackForm="ngForm" (ngSubmit)="onSubmit(feedbackForm)" novalidate>
+
+  <div>
+    <label for="content">Comment:</label><br>
+    <textarea id="content" name="content" rows="4" placeholder="Write your feedback..."
+              [(ngModel)]="feedback.content" required #c="ngModel"></textarea>
+    <div *ngIf="c.touched && c.invalid" style="color:red;">
+      <div *ngIf="c.hasError('required')">Comment is required</div>
+    </div>
+  </div>
+
+  <div>
+    <label for="rate">Rating:</label><br>
+    <select id="rate" name="rate" [(ngModel)]="feedback.rate" required #r="ngModel">
+      <option value="">Select rating</option>
+      <option value="1">1 - Bad</option>
+      <option value="2">2 - Poor</option>
+      <option value="3">3 - Average</option>
+      <option value="4">4 - Good</option>
+      <option value="5">5 - Excellent</option>
+    </select>
+    <div *ngIf="r.touched && r.invalid" style="color:red;">
+      Rating is required
+    </div>
+  </div>
+
+  <div>
+    <label for="date">Date:</label><br>
+    <input type="date" id="date" name="date" [value]="todayString" readonly>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
