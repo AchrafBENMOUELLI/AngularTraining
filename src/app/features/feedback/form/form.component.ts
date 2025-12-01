@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { FeedbackService } from '../../../shared/data/feedback.service';
 import { feedback } from '../../../models/feedback';
 import { ActivatedRoute } from '@angular/router';
@@ -73,5 +73,109 @@ export class FormComponent implements OnInit {
 
   get todayString(): string {
     return this.feedback.date.toISOString().split('T')[0];
+  }
+}*/
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FeedbackService } from '../../../shared/data/feedback.service';
+import { Feedback } from '../../../models/feedback';
+
+@Component({
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css']
+})
+export class FormComponent implements OnInit {
+
+  feedback: Feedback = {
+    id_user: 1,
+    id_event: '',      
+    content: '',
+    rate: 0,
+    date: new Date()
+  };
+
+  constructor(
+    private feedbackService: FeedbackService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    // Récupérer l'ID de l'événement depuis l'URL (sans le +)
+    const eventId = this.route.snapshot.paramMap.get('eventId');
+    if (eventId) {
+      this.feedback.id_event = eventId;  // ← string, pas number
+    } else {
+      alert('❌ ID de l\'événement manquant');
+      this.router.navigate(['/events']);
+    }
+  }
+
+  /////////////////////////////////////////////////
+  // Soumettre le feedback
+  /////////////////////////////////////////////////
+  onSubmit(form: any) {
+    if (!form.valid) {
+      alert('⚠️ Veuillez remplir tous les champs correctement');
+      return;
+    }
+
+    // Validation supplémentaire
+    if (!this.feedback.content || this.feedback.content.trim().length < 3) {
+      alert('⚠️ Le commentaire doit contenir au moins 3 caractères');
+      return;
+    }
+
+    if (this.feedback.rate < 1 || this.feedback.rate > 5) {
+      alert('⚠️ La note doit être entre 1 et 5');
+      return;
+    }
+
+    console.log('Feedback à créer:', this.feedback);
+
+    this.feedbackService.createFeedback(this.feedback).subscribe({
+      next: (createdFeedback) => {
+        console.log('Feedback créé:', createdFeedback);
+        alert('✅ Commentaire ajouté avec succès !');
+
+        // Rediriger vers les détails de l'événement
+        this.router.navigate(['/events/details', this.feedback.id_event]);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la création:', err);
+
+        if (err.error && err.error.message) {
+          alert(`❌ Erreur: ${err.error.message}`);
+        } else {
+          alert('❌ Erreur lors de l\'ajout du commentaire');
+        }
+      }
+    });
+  }
+
+  /////////////////////////////////////////////////
+  // Annuler et retourner
+  /////////////////////////////////////////////////
+  cancel() {
+    if (confirm('Êtes-vous sûr de vouloir annuler ?')) {
+      this.router.navigate(['/events/details', this.feedback.id_event]);
+    }
+  }
+
+  /////////////////////////////////////////////////
+  // Réinitialiser le formulaire
+  /////////////////////////////////////////////////
+  reset() {
+    this.feedback.content = '';
+    this.feedback.rate = 0;
+    this.feedback.date = new Date();
+  }
+
+  /////////////////////////////////////////////////
+  // Obtenir la date au format string pour l'input
+  /////////////////////////////////////////////////
+  get todayString(): string {
+    return new Date().toISOString().split('T')[0];
   }
 }

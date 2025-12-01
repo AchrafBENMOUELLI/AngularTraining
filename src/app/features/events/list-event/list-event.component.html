@@ -27,11 +27,19 @@
     </app-card-event>
 
 
-    <!-- Delete button must be inside the same ngFor -->
+    <!-- Delete button must be inside the same ngFor
     <button type="button" class="btn btn-danger btn-sm mt-2"
             (click)="delete(event.id)">
       Delete
     </button>
+    -->
+    <button
+        type="button"
+        class="btn btn-danger btn-sm mt-2"
+        (click)="delete(event._id!)"
+        [disabled]="!event._id">
+        Supprimer
+      </button>
 
   </div>
 

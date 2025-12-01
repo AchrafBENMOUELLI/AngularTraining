@@ -1,3 +1,4 @@
+<!--
 <form class="row g-4 form-card" #form="ngForm" novalidate>
   <div class="col-12">
     <h2 class="h4 mb-1 text-brand">Create event</h2>
@@ -80,5 +81,227 @@
   <div class="col-12 d-flex justify-content-end gap-2">
     <button type="button" class="btn btn-brand-outline">Cancel</button>
     <button class="btn btn-brand" type="submit" [disabled]="form.invalid" (click)="save()">Submit</button>
+  </div>
+</form>
+-->
+<form class="row g-4 form-card" #form="ngForm" novalidate>
+  <div class="col-12">
+    <h2 class="h4 mb-1 text-brand">Créer un événement</h2>
+    <p class="form-subtitle">Remplissez tous les champs pour créer votre événement.</p>
+  </div>
+
+  <!-- Title -->
+  <div class="col-md-9">
+    <label for="title" class="form-label">Titre <span class="text-danger">*</span></label>
+    <input
+      type="text"
+      [(ngModel)]="event.title"
+      class="form-control"
+      id="title"
+      name="title"
+      minlength="3"
+      maxlength="200"
+      required
+      #t="ngModel"
+      placeholder="Titre de l'événement"
+    />
+    <div class="alert alert-danger mt-2" *ngIf="t.touched && t.invalid">
+      <div *ngIf="t.hasError('required')">Ce champ est obligatoire</div>
+      <div *ngIf="t.hasError('minlength')">Minimum 3 caractères</div>
+      <div *ngIf="t.hasError('maxlength')">Maximum 200 caractères</div>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="col-12">
+    <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+    <textarea
+      [(ngModel)]="event.description"
+      class="form-control"
+      id="description"
+      name="description"
+      rows="4"
+      minlength="10"
+      maxlength="2000"
+      placeholder="Décrivez votre événement..."
+      required
+      #desc="ngModel"
+    ></textarea>
+    <small class="text-muted">{{ event.description.length || 0 }} / 2000 caractères</small>
+    <div class="alert alert-danger mt-2" *ngIf="desc.touched && desc.invalid">
+      <div *ngIf="desc.hasError('required')">Ce champ est obligatoire</div>
+      <div *ngIf="desc.hasError('minlength')">Minimum 10 caractères</div>
+      <div *ngIf="desc.hasError('maxlength')">Maximum 2000 caractères</div>
+    </div>
+  </div>
+
+  <!-- Date -->
+  <div class="col-md-4">
+    <label for="date" class="form-label">Date <span class="text-danger">*</span></label>
+    <input
+      type="date"
+      [(ngModel)]="event.date"
+      class="form-control"
+      id="date"
+      name="date"
+      [min]="minDate"
+      required
+      #d="ngModel"
+    >
+    <div class="alert alert-danger mt-2" *ngIf="d.touched && d.invalid">
+      <div *ngIf="d.hasError('required')">Ce champ est obligatoire</div>
+    </div>
+  </div>
+
+  <!-- Location -->
+  <div class="col-md-4">
+    <label for="location" class="form-label">Lieu <span class="text-danger">*</span></label>
+    <input
+      type="text"
+      [(ngModel)]="event.location"
+      class="form-control"
+      id="location"
+      name="location"
+      minlength="3"
+      maxlength="200"
+      placeholder="Ville / Lieu"
+      required
+      #l="ngModel"
+    >
+    <div class="alert alert-danger mt-2" *ngIf="l.touched && l.invalid">
+      <div *ngIf="l.hasError('required')">Ce champ est obligatoire</div>
+      <div *ngIf="l.hasError('minlength')">Minimum 3 caractères</div>
+    </div>
+  </div>
+
+  <!-- Price -->
+  <div class="col-md-4">
+    <label for="price" class="form-label">Prix (DT) <span class="text-danger">*</span></label>
+    <input
+      type="number"
+      [(ngModel)]="event.price"
+      class="form-control"
+      id="price"
+      name="price"
+      step="0.01"
+      min="0"
+      required
+      #p="ngModel"
+      placeholder="0.00"
+    >
+    <div class="alert alert-danger mt-2" *ngIf="p.touched && p.invalid">
+      <div *ngIf="p.hasError('required')">Ce champ est obligatoire</div>
+      <div *ngIf="p.hasError('min')">Le prix doit être positif ou zéro</div>
+    </div>
+  </div>
+
+  <!-- Organizer ID -->
+  <div class="col-md-6">
+    <label for="organizerId" class="form-label">ID Organisateur <span class="text-danger">*</span></label>
+    <input
+      type="number"
+      [(ngModel)]="event.organizerId"
+      class="form-control"
+      id="organizerId"
+      name="organizerId"
+      min="1"
+      required
+      #o="ngModel"
+      placeholder="1"
+    >
+    <small class="text-muted">Identifiant de l'organisateur</small>
+    <div class="alert alert-danger mt-2" *ngIf="o.touched && o.invalid">
+      <div *ngIf="o.hasError('required')">Ce champ est obligatoire</div>
+      <div *ngIf="o.hasError('min')">La valeur doit être au moins 1</div>
+    </div>
+  </div>
+
+  <!-- Image URL -->
+  <div class="col-md-6">
+    <label for="imageUrl" class="form-label">URL de l'image <span class="text-danger">*</span></label>
+    <div class="input-group">
+      <span class="input-group-text">🖼️</span>
+      <input
+        type="url"
+        [(ngModel)]="event.imageUrl"
+        class="form-control"
+        id="imageUrl"
+        name="imageUrl"
+        placeholder="https://example.com/image.jpg"
+        required
+        #img="ngModel"
+      >
+    </div>
+    <small class="text-muted">URL complète avec https://</small>
+    <div class="alert alert-danger mt-2" *ngIf="img.touched && img.invalid">
+      <div *ngIf="img.hasError('required')">Ce champ est obligatoire</div>
+    </div>
+
+    <!-- Preview image -->
+    <div *ngIf="event.imageUrl && img.valid" class="mt-2">
+      <img
+        [src]="event.imageUrl"
+        alt="Aperçu"
+        class="img-thumbnail"
+        style="max-height: 150px;"
+        (error)="img.control.setErrors({invalidUrl: true})"
+      >
+    </div>
+    <div class="alert alert-warning mt-2" *ngIf="img.hasError('invalidUrl')">
+      ⚠️ L'URL de l'image ne semble pas valide
+    </div>
+  </div>
+
+  <!-- Available Places -->
+  <div class="col-md-6">
+    <label for="nbPlaces" class="form-label">Places disponibles <span class="text-danger">*</span></label>
+    <input
+      type="number"
+      [(ngModel)]="event.nbPlaces"
+      class="form-control"
+      id="nbPlaces"
+      name="nbPlaces"
+      min="1"
+      required
+      #n="ngModel"
+      placeholder="100"
+    >
+    <div class="alert alert-danger mt-2" *ngIf="n.touched && n.invalid">
+      <div *ngIf="n.hasError('required')">Ce champ est obligatoire</div>
+      <div *ngIf="n.hasError('min')">Minimum 1 place</div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="col-12 d-flex justify-content-end gap-2">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="cancel()">
+      ❌ Annuler
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-outline-warning"
+      (click)="reset()"
+      [disabled]="form.pristine">
+      🔄 Réinitialiser
+    </button>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="form.invalid"
+      (click)="save()">
+      ✅ Créer l'événement
+    </button>
+  </div>
+
+  <!-- Form validation summary -->
+  <div class="col-12" *ngIf="form.invalid && form.touched">
+    <div class="alert alert-warning">
+      <strong>⚠️ Attention :</strong> Certains champs sont invalides. Veuillez les corriger avant de soumettre.
+    </div>
   </div>
 </form>
