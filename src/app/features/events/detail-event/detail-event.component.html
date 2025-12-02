@@ -53,6 +53,15 @@
 
   </div>
 </div>
+<!-- 🔹 Autres événements dans la même location -->
+<div *ngIf="similarEvents.length > 0" class="similar-events mt-5">
+  <h4>Autres événements à {{ currentEvent.location }}</h4>
+  <div class="d-flex flex-wrap gap-3">
+    <!-- Réutilisation du CardComponent -->
+    <app-card *ngFor="let e of similarEvents" [e]="e"></app-card>
+  </div>
+</div>
+
 
 <!-- 🔹 Message si aucun événement trouvé -->
 <ng-template #notFound>

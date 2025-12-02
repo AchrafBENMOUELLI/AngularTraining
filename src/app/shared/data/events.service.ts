@@ -6,14 +6,15 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class EventsService {
-  urlBackend = 'http://localhost:3000/events/';
+  urlBackend = 'http://localhost:3000/events';
   constructor(private http: HttpClient) { }
   public getAllEvents(){
        return this.http.get<Eventy[]>(this.urlBackend)
   }
-  public getEventById(id:number){
-      return this.http.get<Eventy>(this.urlBackend+id)
-  }
+  public getEventById(id: number) {
+  return this.http.get<Eventy>(`${this.urlBackend}/${id}`);
+}
+
   addEvent(event:Eventy){
     return this.http.post<Eventy>(this.urlBackend, event)
   }
@@ -26,4 +27,11 @@ export class EventsService {
   searchByLocation(location:string){
     return this.http.get<Eventy[]>(this.urlBackend+'?location='+location)
   }
+  public getEventsByLocation(location: string, excludeId?: number) {
+  let url = `${this.urlBackend}?location=${location}`;
+  return this.http.get<Eventy[]>(url);
+}
+
+
+
 }
